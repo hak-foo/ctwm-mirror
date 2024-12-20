@@ -267,6 +267,17 @@ DFHANDLER(unfocus)
  *
  *************************************************************
  */
+ 
+/* Safety mode:  A "delete or destroy" that only triggers on double-click */
+DFHANDLER(doubleclickdeleteordestroy)
+{
+	/* FIXME using the same double-click ConstrainedMoveTime here */
+	if((eventp->xbutton.time - last_time) < ConstrainedMoveTime) {
+		f_deleteordestroy_impl(EF_ARGS);
+		return;
+	}
+	last_time = eventp->xbutton.time;
+}
 static void
 SendDeleteWindowMessage(TwmWindow *tmp, Time timestamp)
 {

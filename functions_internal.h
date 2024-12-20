@@ -134,6 +134,7 @@ DFHANDLER(unfocus);
 DFHANDLER(delete);
 DFHANDLER(destroy);
 DFHANDLER(deleteordestroy);
+DFHANDLER(doubleclickdeleteordestroy);
 DFHANDLER(priorityswitching);
 DFHANDLER(switchpriority);
 DFHANDLER(setpriority);
