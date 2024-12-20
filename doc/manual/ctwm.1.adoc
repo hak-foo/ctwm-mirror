@@ -2503,6 +2503,9 @@ f.delete::
 f.deleteordestroy::
   First tries to delete the window (send it `WM_DELETE_WINDOW` message),
   or kills it, if the client doesn't accept such message.
+  
+f.doubleclickdeleteordestroy::
+  Similar to f.deleteordestroy, but only triggers if double-clicked within the time given by the `ConstrainedMoveTime` variable.
 
 f.deltastop::
   This function allows a user-defined function to be aborted if the pointer has
@@ -2651,6 +2654,9 @@ f.menu `string`::
   Meta-the-second-letter activates it, if this first letter is ^ then
   Control-the-second-letter activates it, and if this first letter is space,
   then the second letter activates it.
+  
+f.menuorclose `string`::
+  If clicked once, behaves like `f.menu` above.  If double-clicked, behaves like `f.deleteordestroy`.  Double-click time is specified by the `ConstrainedMoveTime` variable.
 
 f.move::
   This function drags an outline of the selected window (or the window itself
@@ -2778,6 +2784,9 @@ f.raiseorsqueeze::
   defines a double click is given by the `ConstrainedMoveTime` variable.
 +
 First appeared in 4.0.0.
+
+f.raisemoveorsqueeze::
+  Raise the window on click.  If the window is dragged, the window moves like `f.movepack`.  If double-clicked within the `ConstrainedMoveTime` period, the window is squeezed.
 
 f.refresh::
   This function causes all windows to be refreshed.
