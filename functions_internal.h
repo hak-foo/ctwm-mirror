@@ -79,6 +79,7 @@ DFHANDLER(moveresize);
 DFHANDLER(changesize);
 DFHANDLER(savegeometry);
 DFHANDLER(restoregeometry);
+DFHANDLER(raisemoveorsqueeze);
 
 
 /* functions_workspaces.c */

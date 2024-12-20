@@ -92,6 +92,7 @@ raise                 - CS -
 raiseicons            - -  -
 raiselower            - CS -
 raiseorsqueeze        - CS -
+raisemoveorsqueeze    - CS -
 refresh               - -  -
 removefromworkspace   S CS -
 rereadsounds          - -  SOUNDS

@@ -111,6 +111,26 @@ DFHANDLER(movepush)
 	movewindow(EF_ARGS);
 }
 
+DFHANDLER(raisemoveorsqueeze)
+{
+	/* Raise the window with the "tinyraise" logic */
+	if(tmp_win->icon && (w == tmp_win->icon->w) && Context != C_ROOT) {
+		OtpTinyRaise(tmp_win, IconWin);
+	}
+	else {
+		OtpTinyRaise(tmp_win, WinWin);
+		WMapRaise(tmp_win);
+	}
+	
+	/* FIXME using the same double-click ConstrainedMoveTime here */
+	if((eventp->xbutton.time - last_time) < ConstrainedMoveTime) {
+		Squeeze(tmp_win);
+		return;
+	}
+	func = F_MOVEPACK;
+	movewindow(EF_ARGS);
+}
+
 /* f.move and friends backend */
 static void
 movewindow(EF_FULLPROTO)
