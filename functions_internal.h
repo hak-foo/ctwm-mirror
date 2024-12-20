@@ -181,6 +181,7 @@ DFHANDLER(togglesound);
 DFHANDLER(rereadsounds);
 #endif
 DFHANDLER(exec);
+DFHANDLER(menuorclose);
 
 
 

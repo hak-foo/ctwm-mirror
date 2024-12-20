@@ -69,6 +69,7 @@ leftworkspace         - -  -
 leftzoom              - CS -
 lower                 - CS -
 menu                  S -  -
+menuorclose           S -  -
 move                  - CM -
 movepack              - CM -
 movepush              - CM -

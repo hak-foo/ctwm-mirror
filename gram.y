@@ -227,7 +227,7 @@ stmt		: error
 		    AddFuncButton ($1, C_ROOT, 0, F_MENU, root, NULL);
 		}
 		| button action		{
-			if ($2 == F_MENU) {
+			if ($2 == F_MENU || $2 == F_MENUORCLOSE) {
 			    pull->prev = NULL;
 			    AddFuncButton ($1, C_ROOT, 0, $2, pull, NULL);
 			}
@@ -1070,6 +1070,7 @@ action		: FKEYWORD	{ $$ = $1; }
 				Action = (char*)$2;
 				switch ($1) {
 				  case F_MENU:
+				  case F_MENUORCLOSE:
 				    pull = GetRoot ($2, NULL,NULL);
 				    pull->prev = root;
 				    break;

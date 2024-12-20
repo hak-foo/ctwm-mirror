@@ -334,7 +334,10 @@ DFHANDLER(rereadsounds)
 }
 #endif
 
-
+DFHANDLER(menuorclose)
+{
+	/* Placeholder - actual moving parts in event_handlers.c */
+}
 
 /*
  * And executing an external program

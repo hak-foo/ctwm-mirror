@@ -91,6 +91,7 @@ static unsigned int set_mask_ignore(unsigned int modifier)
 	return modifier;
 }
 
+static Time last_double_click_time = 0;
 
 /***********************************************************************
  *
@@ -2712,11 +2713,31 @@ void HandleButtonPress(void)
 							 * handler, we use our do_menu(); x-ref
 							 * comments in the handler for details.
 							 */
+							
+							case F_MENUORCLOSE:
+								if((Event.xbutton.time - last_double_click_time) < ConstrainedMoveTime) {
+										ExecuteFunction(F_DELETEORDESTROY, tbf->action,
+								                Event.xany.window, Tmp_win,
+								                &Event, C_TITLE, false);
+									break;
+								}
+								last_double_click_time = Event.xbutton.time;	
+								/* Simulate normal menu button behaviour */
+						
+								Context = C_TITLE;
+								ButtonWindow = Tmp_win;
+								printf("%d\n", tbf->menuroot);
+								do_menu(tbf->menuroot, tbw->window);
+								
+								break;
+								
 							case F_MENU :
 								Context = C_TITLE;
 								ButtonWindow = Tmp_win;
 								do_menu(tbf->menuroot, tbw->window);
 								break;
+
+
 
 							default :
 								ExecuteFunction(tbf->func, tbf->action,
