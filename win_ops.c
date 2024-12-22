@@ -33,10 +33,31 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 		return;
 	}
 
+	PaintTitle(tmp_win);
 	if(focus == tmp_win->hasfocusvisible) {
 		return;
 	}
 	if(tmp_win->highlight) {
+	
+
+		Pixel temp = tmp_win->title.back;
+		if (focus) {
+			tmp_win->title.back =  tmp_win->borderC.back;
+		} 
+		if(tmp_win->title_w) {
+		
+			XSetForeground(dpy, Scr->NormalGC, tmp_win->title.back);
+			XFillRectangle(dpy, tmp_win->title_w, Scr->NormalGC, 0, 0, tmp_win->title_width , Scr->TitleHeight);
+			XSetForeground(dpy, Scr->NormalGC, tmp_win->title.fore);
+			PaintTitle(tmp_win);
+			
+		}
+		if(tmp_win->titlebuttons) {
+			PaintTitleButtons(tmp_win);
+		}
+
+		tmp_win->title.back = temp;
+		
 		if(Scr->use3Dborders) {
 			PaintBorders(tmp_win, focus);
 		}
