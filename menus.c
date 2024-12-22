@@ -79,7 +79,7 @@ static void DestroyMenu(MenuRoot *menu);
 
 
 #define SHADOWWIDTH 5                   /* in pixels */
-#define ENTRY_SPACING 4
+#define ENTRY_SPACING 8
 
 
 /***********************************************************************

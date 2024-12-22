@@ -821,7 +821,7 @@ ctwm_main(int argc, char *argv[])
 		// Adjust settings for titlebar.  Must follow CreateFonts() call
 		// so we know these bits are populated
 		Scr->TitleBarFont.y += Scr->FramePadding;
-		Scr->TitleHeight = Scr->TitleBarFont.height + Scr->FramePadding * 2;
+		Scr->TitleHeight = Scr->TitleBarFont.height * 1.6 + Scr->FramePadding * 2;
 		if(Scr->use3Dtitles) {
 			Scr->TitleHeight += 2 * Scr->TitleShadowDepth;
 		}
