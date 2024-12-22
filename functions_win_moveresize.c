@@ -937,7 +937,7 @@ DFHANDLER(resize)
 
 		/*        fromMenu = False;  ????? */
 		if((Context == C_FRAME || Context == C_WINDOW || Context == C_TITLE
-		                || Context == C_ROOT)
+		                || Context == C_ROOT || Context == C_ICONMGR)
 		                && cur_fromMenu()) {
 			resizeFromCenter(w, tmp_win);
 		}
