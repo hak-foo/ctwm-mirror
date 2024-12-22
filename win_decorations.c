@@ -755,9 +755,16 @@ CreateWindowTitlebarButtons(TwmWindow *tmp_win)
 				 * this whole block is redundant?
 				 */
 				tbw->image = GetImage(tb->name, tmp_win->title);
-				if(! tbw->image) {
+				
+				Pixel temp = tmp_win->title.back;
+				tmp_win->title.back = tmp_win->borderC.back;
+				tbw->image_highlight = GetImage(tb->name, tmp_win->title);
+				tmp_win->title.back = temp;
+				
+				if(! tbw->image || !tbw->image_highlight) {
 					tbw->image = GetImage(TBPM_QUESTION, tmp_win->title);
-					if(! tbw->image) {          /* cannot happen (see util.c) */
+					tbw->image_highlight = GetImage(TBPM_QUESTION, tmp_win->title);
+					if(! tbw->image || !tbw->image_highlight) {          /* cannot happen (see util.c) */
 						fprintf(stderr, "%s:  unable to add titlebar button \"%s\"\n",
 						        ProgramName, tb->name);
 					}
@@ -770,7 +777,6 @@ CreateWindowTitlebarButtons(TwmWindow *tmp_win)
 	/* Windows in the titlebar that show focus */
 	CreateHighlightWindows(tmp_win);
 	CreateLowlightWindows(tmp_win);
-
 	/* Map all those windows we just created... */
 	XMapSubwindows(dpy, tmp_win->title_w);
 
@@ -979,6 +985,8 @@ CreateHighlightWindows(TwmWindow *tmp_win)
 	if(! tmp_win->titlehighlight) {
 		return;
 	}
+	
+	
 
 	/*
 	 * If a special highlight pixmap was given, use that.  Otherwise,
@@ -1221,7 +1229,7 @@ PaintTitle(TwmWindow *tmp_win)
 		int width, mwidth, len;
 		XRectangle ink_rect;
 		XRectangle logical_rect;
-
+				
 		/*
 		 * Do a bunch of trying to chop the length down until it will fit
 		 * into the space.  This doesn't seem to actually accomplish
@@ -1292,18 +1300,41 @@ PaintTitleButtons(TwmWindow *tmp_win)
 	}
 }
 
+
+void
+PaintFocusTitleButtons(TwmWindow *tmp_win)
+{
+	int i;
+	TBWindow *tbw;
+	int nb = Scr->TBInfo.nleft + Scr->TBInfo.nright;
+
+	for(i = 0, tbw = tmp_win->titlebuttons; i < nb; i++, tbw++) {
+		if(tbw) {
+			PaintFocusTitleButton(tmp_win, tbw);
+		}
+	}
+}
+
 /* Blit the pixmap into the right place */
 void
 PaintTitleButton(TwmWindow *tmp_win, TBWindow *tbw)
 {
 	TitleButton *tb = tbw->info;
-
 	XCopyArea(dpy, tbw->image->pixmap, tbw->window, Scr->NormalGC,
-	          tb->srcx, tb->srcy, tb->width, tb->height,
-	          tb->dstx, tb->dsty);
+         tb->srcx, tb->srcy, tb->width, tb->height,
+         tb->dstx, tb->dsty);
 	return;
 }
 
+void
+PaintFocusTitleButton(TwmWindow *tmp_win, TBWindow *tbw)
+{
+	TitleButton *tb = tbw->info;
+	XCopyArea(dpy, tbw->image_highlight->pixmap, tbw->window, Scr->NormalGC,
+         tb->srcx, tb->srcy, tb->width, tb->height,
+         tb->dstx, tb->dsty);
+	return;
+}
 
 
 

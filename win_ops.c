@@ -53,7 +53,10 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 			
 		}
 		if(tmp_win->titlebuttons) {
-			PaintTitleButtons(tmp_win);
+			if (focus) 
+				PaintFocusTitleButtons(tmp_win);
+			else 
+				PaintTitleButtons(tmp_win);
 		}
 
 		tmp_win->title.back = temp;

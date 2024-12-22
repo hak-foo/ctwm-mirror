@@ -18,7 +18,9 @@ void DeleteHighlightWindows(TwmWindow *tmp_win);
 
 void PaintTitle(TwmWindow *tmp_win);
 void PaintTitleButtons(TwmWindow *tmp_win);
+void PaintFocusTitleButtons(TwmWindow *tmp_win);
 void PaintTitleButton(TwmWindow *tmp_win, TBWindow  *tbw);
+void PaintFocusTitleButton(TwmWindow *tmp_win, TBWindow  *tbw);
 
 void PaintBorders(TwmWindow *tmp_win, bool focus);
 void SetBorderCursor(TwmWindow *tmp_win, int x, int y);

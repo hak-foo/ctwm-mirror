@@ -164,6 +164,7 @@ struct TitleButton {
 struct TBWindow {
 	Window window;                      /* which window in this frame */
 	Image *image;                       /* image to display in button */
+	Image *image_highlight;                       /* image to display in button */
 	TitleButton *info;                  /* description of this window */
 };
 
