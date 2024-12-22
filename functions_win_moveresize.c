@@ -113,12 +113,12 @@ DFHANDLER(movepush)
 
 DFHANDLER(raisemoveorsqueeze)
 {
-	/* Raise the window with the "tinyraise" logic */
-	if(tmp_win->icon && (w == tmp_win->icon->w) && Context != C_ROOT) {
-		OtpTinyRaise(tmp_win, IconWin);
+	/* Raise the window with the "raise" logic */
+	if(tmp_win->icon && (w == tmp_win->icon->w) && Context != C_ROOT)  {
+		OtpRaise(tmp_win, IconWin);
 	}
 	else {
-		OtpTinyRaise(tmp_win, WinWin);
+		OtpRaise(tmp_win, WinWin);
 		WMapRaise(tmp_win);
 	}
 	
