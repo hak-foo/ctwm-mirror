@@ -1614,7 +1614,20 @@ void HandleExpose(void)
 			return;
 		}
 		else if(Event.xany.window == Tmp_win->title_w) {
+			
+	
+
+			Pixel temp = Tmp_win->title.back;
+			if(Tmp_win->highlight && Tmp_win->hasfocusvisible) {
+				Tmp_win->title.back =  Tmp_win->borderC.back;
+			} 
+		
+			XSetForeground(dpy, Scr->NormalGC, Tmp_win->title.back);
+			XFillRectangle(dpy, Tmp_win->title_w, Scr->NormalGC, 0, 0, Tmp_win->title_width , Scr->TitleHeight);
+			XSetForeground(dpy, Scr->NormalGC, Tmp_win->title.fore);
 			PaintTitle(Tmp_win);
+			Tmp_win->title.back = temp;
+		
 			flush_expose(Event.xany.window);
 			return;
 		}
@@ -1639,7 +1652,10 @@ void HandleExpose(void)
 			 */
 			for(i = 0, tbw = Tmp_win->titlebuttons; i < nb; i++, tbw++) {
 				if(w == tbw->window) {
-					PaintTitleButton(Tmp_win, tbw);
+					if(Tmp_win->highlight && Tmp_win->hasfocusvisible) 
+						PaintFocusTitleButton(Tmp_win, tbw);
+					else 
+						PaintTitleButton(Tmp_win, tbw);
 					flush_expose(tbw->window);
 					return;
 				}

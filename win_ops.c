@@ -37,6 +37,7 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 	if(focus == tmp_win->hasfocusvisible) {
 		return;
 	}
+	
 	if(tmp_win->highlight) {
 	
 
