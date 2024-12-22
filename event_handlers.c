@@ -2726,7 +2726,6 @@ void HandleButtonPress(void)
 						
 								Context = C_TITLE;
 								ButtonWindow = Tmp_win;
-								printf("%d\n", tbf->menuroot);
 								do_menu(tbf->menuroot, tbw->window);
 								
 								break;
