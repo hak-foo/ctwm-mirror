@@ -192,6 +192,7 @@ movewindow(EF_FULLPROTO)
 		XWarpPointer(dpy, None, Scr->Root,
 		             0, 0, 0, 0, eventp->xbutton.x_root, eventp->xbutton.y_root);
 
+
 	/*
 	 * Stub out handlers for enter/leave notifications while we do stuff.
 	 * They get reset toward the end of the ButtonRelease handler.
@@ -263,7 +264,7 @@ movewindow(EF_FULLPROTO)
 	 * XMoveWindow() moves are relative to this.
 	 * MoveOutline()s however are drawn from the XineramaRoot since they
 	 * may cross virtual screens.
-	 */
+	 */ 
 	XGetGeometry(dpy, w, &JunkRoot, &origDragX, &origDragY,
 	             &DragWidth, &DragHeight, &DragBW,
 	             &JunkDepth);
@@ -337,15 +338,30 @@ movewindow(EF_FULLPROTO)
 	 * TitleButton bound to f.move).  We need to keep this var in a scope
 	 * outside the event loop below because the resetting of it in there
 	 * is supposed to have effect on future loops.
+	 * If we triggered "Move" from a menu bound to the icon manager, we need to warp
+	 * the cursor back because otherwise it's far offset from the window.
 	 */
 	fromtitlebar = belongs_to_twm_window(tmp_win, eventp->xbutton.window);
-
 	if(menuFromFrameOrWindowOrTitlebar) {
 		/* warp the pointer to the middle of the window */
 		XWarpPointer(dpy, None, Scr->Root, 0, 0, 0, 0,
 		             origDragX + DragWidth / 2,
 		             origDragY + DragHeight / 2);
 		XFlush(dpy);
+	}
+	
+	/*
+	 * If we triggered "Move" from a menu bound to the icon manager, we need to warp
+	 * the cursor back because otherwise it's far offset from the window.
+	 */
+	if(context == C_ICONMGR) {
+		/* warp the pointer to the middle of the window */
+		XWarpPointer(dpy, None, Scr->Root, 0, 0, 0, 0,
+		             origDragX + DragWidth / 2,
+		             origDragY + DragHeight / 2);
+		XFlush(dpy);
+		XQueryPointer(dpy, w, &JunkRoot, &JunkChild,
+		              &JunkX, &JunkY, &DragX, &DragY, &JunkMask);
 	}
 
 	/* Fill in the position window with where we're starting */
@@ -371,6 +387,10 @@ movewindow(EF_FULLPROTO)
 		                Event.xany.type == LeaveNotify) {
 			continue;
 		}
+		
+		/* If we're moving as a result of icon-manager selection, we don't want to be reverted
+		by a button press */
+		if (context == C_ICONMGR && Event.type  == ButtonPress) { continue; }
 
 		/* discard any extra motion events before a logical release */
 		if(Event.type == MotionNotify) {
@@ -379,9 +399,8 @@ movewindow(EF_FULLPROTO)
 					break;
 				}
 		}
-
 		/* test to see if we have a second button press to abort move */
-		if(!menuFromFrameOrWindowOrTitlebar) {
+		if(!menuFromFrameOrWindowOrTitlebar && context != C_ICONMGR) {
 			if(Event.type == ButtonPress && DragWindow != None) {
 				Cursor cur;
 				if(Scr->OpaqueMove) {
@@ -427,8 +446,9 @@ movewindow(EF_FULLPROTO)
 		if(!DispatchEvent2()) {
 			continue;
 		}
+		
 
-		if(Cancel) {
+		if(Cancel && context != C_ICONMGR) {
 			WindowMoved = false;
 			if(!Scr->OpaqueMove) {
 				UninstallRootColormap();
@@ -437,6 +457,7 @@ movewindow(EF_FULLPROTO)
 			return;
 		}
 		if(Event.type == releaseEvent) {
+
 			MoveOutline(dragroot, 0, 0, 0, 0, 0, 0);
 			if(moving_icon &&
 			                ((CurrentDragX != origDragX ||
@@ -546,7 +567,6 @@ movewindow(EF_FULLPROTO)
 		}
 
 		WindowMoved = true;
-
 		/*
 		 * Handle moving the step
 		 */
@@ -651,7 +671,6 @@ movewindow(EF_FULLPROTO)
 				xl = xroot - (DragWidth / 2);
 				yt = yroot - (DragHeight / 2);
 			}
-
 			if(Scr->DontMoveOff && MoveFunction != F_FORCEMOVE) {
 				TryToGrid(tmp_win, &xl, &yt);
 			}
@@ -693,7 +712,6 @@ movewindow(EF_FULLPROTO)
 				            moving_icon ? 0 : tmp_win->title_height + tmp_win->frame_bw3D);
 			}
 		}
-
 		/* We've moved a step, so update the displayed position */
 		DisplayPosition(tmp_win, CurrentDragX, CurrentDragY);
 	}
@@ -705,7 +723,6 @@ movewindow(EF_FULLPROTO)
 	if(!Scr->OpaqueMove && DragWindow == None) {
 		UninstallRootColormap();
 	}
-
 	return;
 }
 
