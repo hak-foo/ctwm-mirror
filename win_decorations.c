@@ -1002,7 +1002,10 @@ CreateHighlightWindows(TwmWindow *tmp_win)
 	 */
 	if(! tmp_win->HiliteImage) {
 		if(Scr->HighlightPixmapName) {
+			Pixel temp = tmp_win->title.back;
+			tmp_win->title.back = tmp_win->borderC.back;
 			tmp_win->HiliteImage = GetImage(Scr->HighlightPixmapName, tmp_win->title);
+			tmp_win->title.back = temp;
 		}
 	}
 	if(! tmp_win->HiliteImage) {
