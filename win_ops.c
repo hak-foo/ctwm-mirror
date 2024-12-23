@@ -40,17 +40,8 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 	if(tmp_win->highlight) {
 	
 
-		ColorPair temp = tmp_win->title;
-		if (focus) {
-			tmp_win->title =  tmp_win->borderC;
-		} 
 		if(tmp_win->title_w) {
-		
-			XSetForeground(dpy, Scr->NormalGC, tmp_win->title.back);
-			XFillRectangle(dpy, tmp_win->title_w, Scr->NormalGC, 0, 0, tmp_win->title_width , Scr->TitleHeight);
-			XSetForeground(dpy, Scr->NormalGC, tmp_win->title.fore);
-			PaintTitle(tmp_win, focus);
-			
+			PaintTitle(tmp_win, focus);			
 		}
 		if(tmp_win->titlebuttons) {
 			if (focus) 
@@ -58,8 +49,6 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 			else 
 				PaintTitleButtons(tmp_win);
 		}
-
-		tmp_win->title = temp;
 		
 		if(Scr->use3Dborders) {
 			PaintBorders(tmp_win, focus);

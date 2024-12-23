@@ -1619,7 +1619,7 @@ void HandleExpose(void)
 
 			ColorPair temp = Tmp_win->title;
 			if(Tmp_win->highlight && Tmp_win->hasfocusvisible) {
-				Tmp_win->title =  Tmp_win->borderC;
+				Tmp_win->title =  Tmp_win->ActiveTitleC;
 			} 
 		
 			XSetForeground(dpy, Scr->NormalGC, Tmp_win->title.back);

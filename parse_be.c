@@ -211,7 +211,8 @@ typedef struct _TwmKeyword {
 #define kwcl_IconManagerBackground      11
 #define kwcl_MapWindowBackground        12
 #define kwcl_MapWindowForeground        13
-
+#define kwcl_ActiveForeground			14
+#define kwcl_ActiveBackground			15
 
 #define kwc_DefaultForeground           1
 #define kwc_DefaultBackground           2
@@ -220,7 +221,7 @@ typedef struct _TwmKeyword {
 #define kwc_MenuTitleForeground         5
 #define kwc_MenuTitleBackground         6
 #define kwc_MenuShadowColor             7
-#define kwc_HighlightTitle				8
+
 
 
 /*
@@ -230,6 +231,8 @@ typedef struct _TwmKeyword {
  */
 static const TwmKeyword keytable[] = {
 	{ "a",                      ALTER, 0 },
+	{ "activebackground",    	CLKEYWORD, kwcl_ActiveBackground },
+	{ "activeforeground",    	CLKEYWORD, kwcl_ActiveForeground },
 	{ "all",                    ALL, 0 },
 	{ "alter",                  ALTER, 0 },
 	{ "alwaysontop",            ALWAYS_ON_TOP, 0 },
@@ -296,7 +299,6 @@ static const TwmKeyword keytable[] = {
 	{ "framepadding",           NKEYWORD, kwn_FramePadding },
 	{ "function",               FUNCTION, 0 },
 	{ "grabserver",             KEYWORD, kw0_GrabServer },
-	{ "highlighttitle",    		CKEYWORD, kwc_HighlightTitle },
 	{ "i",                      ICON, 0 },
 	{ "icon",                   ICON, 0 },
 	{ "iconbackground",         CLKEYWORD, kwcl_IconBackground },
@@ -1478,6 +1480,15 @@ name_list **
 do_colorlist_keyword(int keyword, int colormode, char *s)
 {
 	switch(keyword) {
+	
+		case kwcl_ActiveForeground:
+			GetColor(colormode, &Scr->ActiveTitleC.fore, s);
+			return &Scr->ActiveForegroundL;
+			
+		case kwcl_ActiveBackground:
+			GetColor(colormode, &Scr->ActiveTitleC.back, s);
+			return &Scr->ActiveBackgroundL;
+
 		case kwcl_BorderColor:
 			GetColor(colormode, &Scr->BorderColorC.back, s);
 			return &Scr->BorderColorL;
@@ -1543,10 +1554,6 @@ do_color_keyword(int keyword, int colormode, char *s)
 			GetColor(colormode, &Scr->DefaultC.fore, s);
 			return true;
 			
-		case kwc_HighlightTitle:
-			GetColor(colormode, &Scr->HighlightTitle.fore, s);
-			return true;
-
 		case kwc_DefaultBackground:
 			GetColor(colormode, &Scr->DefaultC.back, s);
 			return true;

@@ -392,7 +392,8 @@ struct ScreenInfo {
 	/// Color of window borders.  \sa ScreenInfo.BorderColorL
 	ColorPair BorderColorC;
 	
-	ColorPair HighlightTitle;
+	/// Color pair for highlighted title bars.  From ActiveBackground and ActiveForeground
+	ColorPair ActiveTitleC;
 
 	/// Specialized border colors for windows.  From BorderColor config
 	/// var.  \sa ScreenInfo.BorderColorC
@@ -437,6 +438,9 @@ struct ScreenInfo {
 	/// \sa ScreenInfo.IconManagerHighlight
 	name_list *IconManagerHighlightL;
 
+	/// Color to highlight active title bar text and background
+	name_list *ActiveForegroundL;
+	name_list *ActiveBackgroundL;
 	/// Menu shadow color
 	Pixel MenuShadowColor;
 

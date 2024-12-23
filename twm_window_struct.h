@@ -161,6 +161,7 @@ struct TwmWindow {
 	struct WList *iconmanagerlist;
 
 	ColorPair borderC;     ///< ColorPair for focused window borders
+	ColorPair ActiveTitleC;     ///< ColorPair for focused window borders
 	ColorPair border_tile; ///< ColorPair for non-focused window borders
 	ColorPair title;       ///< ColorPair for various other titlebar bits
 

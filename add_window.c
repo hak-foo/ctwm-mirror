@@ -1366,11 +1366,18 @@ AddWindow(Window w, AWType wtype, IconMgr *iconp, VirtualScreen *vs)
 	SETC(TitleForegroundL, title.fore);
 	SETC(TitleBackgroundL, title.back);
 
+	tmp_win->ActiveTitleC.fore = Scr->ActiveTitleC.fore;
+	tmp_win->ActiveTitleC.back = Scr->ActiveTitleC.back;
+	SETC(ActiveForegroundL, ActiveTitleC.fore);
+	SETC(ActiveBackgroundL, ActiveTitleC.back);
+
+
 #undef SETC
 
 	/* Shading on 3d bits */
 	if(Scr->use3Dtitles  && !Scr->BeNiceToColormap) {
 		GetShadeColors(&tmp_win->title);
+		GetShadeColors(&tmp_win->ActiveTitleC);
 	}
 	if(Scr->use3Dborders && !Scr->BeNiceToColormap) {
 		GetShadeColors(&tmp_win->borderC);

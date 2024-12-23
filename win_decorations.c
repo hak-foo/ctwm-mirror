@@ -756,7 +756,7 @@ CreateWindowTitlebarButtons(TwmWindow *tmp_win)
 				 */
 				tbw->image = GetImage(tb->name, tmp_win->title);
 				
-				tbw->image_highlight = GetImage(tb->name, tmp_win->borderC);
+				tbw->image_highlight = GetImage(tb->name, tmp_win->ActiveTitleC);
 				
 				if(! tbw->image || !tbw->image_highlight) {
 					tbw->image = GetImage(TBPM_QUESTION, tmp_win->title);
@@ -999,7 +999,7 @@ CreateHighlightWindows(TwmWindow *tmp_win)
 	 */
 	if(! tmp_win->HiliteImage) {
 		if(Scr->HighlightPixmapName) {
-			tmp_win->HiliteImage = GetImage(Scr->HighlightPixmapName, tmp_win->borderC);
+			tmp_win->HiliteImage = GetImage(Scr->HighlightPixmapName, tmp_win->ActiveTitleC);
 		}
 	}
 	if(! tmp_win->HiliteImage) {
@@ -1193,6 +1193,14 @@ CreateLowlightWindows(TwmWindow *tmp_win)
 void
 PaintTitle(TwmWindow *tmp_win, bool focus)
 {
+
+	if (focus) 
+		XSetForeground(dpy, Scr->NormalGC, tmp_win->ActiveTitleC.back);
+	else
+		XSetForeground(dpy, Scr->NormalGC, tmp_win->title.back);
+	XFillRectangle(dpy, tmp_win->title_w, Scr->NormalGC, 0, 0, tmp_win->title_width , Scr->TitleHeight);
+	XSetForeground(dpy, Scr->NormalGC, tmp_win->title.fore);
+	
 	/* Draw 3d border around title bits */
 	if(Scr->use3Dtitles) {
 		/*
@@ -1215,12 +1223,15 @@ PaintTitle(TwmWindow *tmp_win, bool focus)
 
 		Draw3DBorder(tmp_win->title_w, Scr->TBInfo.titlex, 0, wid,
 		             Scr->TitleHeight, Scr->TitleShadowDepth,
-		             tmp_win->title, state, true, false);
+focus ? tmp_win->ActiveTitleC : 		             tmp_win->title, state, true, false);
 	}
 
+
+
+			
 	/* Setup the X graphics context for the drawing */
 	if (focus) {
-		XSetForeground(dpy, Scr->NormalGC, Scr->HighlightTitle.fore);
+		XSetForeground(dpy, Scr->NormalGC, tmp_win->ActiveTitleC.fore);
 	} 
 
 

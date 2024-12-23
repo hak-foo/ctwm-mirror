@@ -1247,6 +1247,18 @@ apply_window_name(TwmWindow *win)
 			win->borderC = cp;
 		}
 
+		f = GetColorFromList(Scr->ActiveForegroundL, win->name,
+		                     &win->class, &cp.fore);
+		b = GetColorFromList(Scr->ActiveBackgroundL, win->name,
+		                     &win->class, &cp.back);
+		if(f || b) {
+			if(Scr->use3Dborders && !Scr->BeNiceToColormap) {
+				GetShadeColors(&cp);
+			}
+			printf("At 1258: %d %d\n", cp.fore, cp.back);
+			win->ActiveTitleC = cp;
+		}
+
 		f = GetColorFromList(Scr->BorderTileForegroundL, win->name,
 		                     &win->class, &cp.fore);
 		b = GetColorFromList(Scr->BorderTileBackgroundL, win->name,
