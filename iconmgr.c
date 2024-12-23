@@ -1261,7 +1261,6 @@ DrawIconManagerIconName(TwmWindow *tmp_win)
 
 	// Write in the title
 	FB(iconmanagerlist->cp.fore, iconmanagerlist->cp.back);
-printf("%d - at 1264\n", logical_rect.height);
 	/* XXX This is a completely absurd way of writing this */
 	((Scr->use3Diconmanagers && (Scr->Monochrome != COLOR)) ?
 	 XmbDrawImageString : XmbDrawString)

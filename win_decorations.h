@@ -16,7 +16,7 @@ void ComputeTitleLocation(TwmWindow *tmp);
 void CreateWindowTitlebarButtons(TwmWindow *tmp_win);
 void DeleteHighlightWindows(TwmWindow *tmp_win);
 
-void PaintTitle(TwmWindow *tmp_win);
+void PaintTitle(TwmWindow *tmp_win, bool focus);
 void PaintTitleButtons(TwmWindow *tmp_win);
 void PaintFocusTitleButtons(TwmWindow *tmp_win);
 void PaintTitleButton(TwmWindow *tmp_win, TBWindow  *tbw);

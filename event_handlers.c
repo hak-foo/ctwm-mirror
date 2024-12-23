@@ -1625,7 +1625,7 @@ void HandleExpose(void)
 			XSetForeground(dpy, Scr->NormalGC, Tmp_win->title.back);
 			XFillRectangle(dpy, Tmp_win->title_w, Scr->NormalGC, 0, 0, Tmp_win->title_width , Scr->TitleHeight);
 			XSetForeground(dpy, Scr->NormalGC, Tmp_win->title.fore);
-			PaintTitle(Tmp_win);
+			PaintTitle(Tmp_win, Tmp_win->highlight && Tmp_win->hasfocusvisible);
 			Tmp_win->title = temp;
 		
 			flush_expose(Event.xany.window);

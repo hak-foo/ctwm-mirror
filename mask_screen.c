@@ -256,7 +256,7 @@ PaintAllDecoration(void)
 				             (tmp_win->highlight && tmp_win == Scr->Focus));
 			}
 			if(tmp_win->title_w) {
-				PaintTitle(tmp_win);
+				PaintTitle(tmp_win, 0);
 			}
 			if(tmp_win->titlebuttons) {
 				PaintTitleButtons(tmp_win);

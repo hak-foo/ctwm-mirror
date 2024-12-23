@@ -212,6 +212,7 @@ typedef struct _TwmKeyword {
 #define kwcl_MapWindowBackground        12
 #define kwcl_MapWindowForeground        13
 
+
 #define kwc_DefaultForeground           1
 #define kwc_DefaultBackground           2
 #define kwc_MenuForeground              3
@@ -219,6 +220,7 @@ typedef struct _TwmKeyword {
 #define kwc_MenuTitleForeground         5
 #define kwc_MenuTitleBackground         6
 #define kwc_MenuShadowColor             7
+#define kwc_HighlightTitle				8
 
 
 /*
@@ -294,6 +296,7 @@ static const TwmKeyword keytable[] = {
 	{ "framepadding",           NKEYWORD, kwn_FramePadding },
 	{ "function",               FUNCTION, 0 },
 	{ "grabserver",             KEYWORD, kw0_GrabServer },
+	{ "highlighttitle",    		CKEYWORD, kwc_HighlightTitle },
 	{ "i",                      ICON, 0 },
 	{ "icon",                   ICON, 0 },
 	{ "iconbackground",         CLKEYWORD, kwcl_IconBackground },
@@ -1539,6 +1542,10 @@ do_color_keyword(int keyword, int colormode, char *s)
 		case kwc_DefaultForeground:
 			GetColor(colormode, &Scr->DefaultC.fore, s);
 			return true;
+			
+		case kwc_HighlightTitle:
+			GetColor(colormode, &Scr->HighlightTitle.fore, s);
+			return true;
 
 		case kwc_DefaultBackground:
 			GetColor(colormode, &Scr->DefaultC.back, s);
@@ -1709,7 +1716,8 @@ assign_var_savecolor(void)
 				break;
 			case kwcl_IconManagerBackground:
 				put_pixel_on_root(Scr->IconManagerC.back);
-				break;
+				break;				
+	
 			case kwcl_MapWindowForeground:
 				put_pixel_on_root(Scr->workSpaceMgr.windowcp.fore);
 				break;

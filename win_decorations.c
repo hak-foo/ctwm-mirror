@@ -1191,7 +1191,7 @@ CreateLowlightWindows(TwmWindow *tmp_win)
  * Write in the window title
  */
 void
-PaintTitle(TwmWindow *tmp_win)
+PaintTitle(TwmWindow *tmp_win, bool focus)
 {
 	/* Draw 3d border around title bits */
 	if(Scr->use3Dtitles) {
@@ -1219,7 +1219,10 @@ PaintTitle(TwmWindow *tmp_win)
 	}
 
 	/* Setup the X graphics context for the drawing */
-	FB(tmp_win->title.fore, tmp_win->title.back);
+	if (focus) {
+		XSetForeground(dpy, Scr->NormalGC, Scr->HighlightTitle.fore);
+	} 
+
 
 	/* And write in the name */
 	if(Scr->use3Dtitles) {
@@ -1276,6 +1279,8 @@ PaintTitle(TwmWindow *tmp_win)
 		              tmp_win->name_x, Scr->TitleBarFont.y,
 		              tmp_win->name, strlen(tmp_win->name));
 	}
+	
+	XSetForeground(dpy, Scr->NormalGC, tmp_win->title.fore);
 }
 
 

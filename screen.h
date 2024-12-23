@@ -391,6 +391,8 @@ struct ScreenInfo {
 
 	/// Color of window borders.  \sa ScreenInfo.BorderColorL
 	ColorPair BorderColorC;
+	
+	ColorPair HighlightTitle;
 
 	/// Specialized border colors for windows.  From BorderColor config
 	/// var.  \sa ScreenInfo.BorderColorC

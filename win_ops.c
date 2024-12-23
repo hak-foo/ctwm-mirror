@@ -32,8 +32,7 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 	if(! tmp_win) {
 		return;
 	}
-
-	PaintTitle(tmp_win);
+	PaintTitle(tmp_win, focus);
 	if(focus == tmp_win->hasfocusvisible) {
 		return;
 	}
@@ -50,7 +49,7 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 			XSetForeground(dpy, Scr->NormalGC, tmp_win->title.back);
 			XFillRectangle(dpy, tmp_win->title_w, Scr->NormalGC, 0, 0, tmp_win->title_width , Scr->TitleHeight);
 			XSetForeground(dpy, Scr->NormalGC, tmp_win->title.fore);
-			PaintTitle(tmp_win);
+			PaintTitle(tmp_win, focus);
 			
 		}
 		if(tmp_win->titlebuttons) {
