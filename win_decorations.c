@@ -756,10 +756,7 @@ CreateWindowTitlebarButtons(TwmWindow *tmp_win)
 				 */
 				tbw->image = GetImage(tb->name, tmp_win->title);
 				
-				Pixel temp = tmp_win->title.back;
-				tmp_win->title.back = tmp_win->borderC.back;
-				tbw->image_highlight = GetImage(tb->name, tmp_win->title);
-				tmp_win->title.back = temp;
+				tbw->image_highlight = GetImage(tb->name, tmp_win->borderC);
 				
 				if(! tbw->image || !tbw->image_highlight) {
 					tbw->image = GetImage(TBPM_QUESTION, tmp_win->title);
@@ -1002,10 +999,7 @@ CreateHighlightWindows(TwmWindow *tmp_win)
 	 */
 	if(! tmp_win->HiliteImage) {
 		if(Scr->HighlightPixmapName) {
-			Pixel temp = tmp_win->title.back;
-			tmp_win->title.back = tmp_win->borderC.back;
-			tmp_win->HiliteImage = GetImage(Scr->HighlightPixmapName, tmp_win->title);
-			tmp_win->title.back = temp;
+			tmp_win->HiliteImage = GetImage(Scr->HighlightPixmapName, tmp_win->borderC);
 		}
 	}
 	if(! tmp_win->HiliteImage) {

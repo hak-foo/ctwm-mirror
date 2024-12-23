@@ -1617,16 +1617,16 @@ void HandleExpose(void)
 			
 	
 
-			Pixel temp = Tmp_win->title.back;
+			ColorPair temp = Tmp_win->title;
 			if(Tmp_win->highlight && Tmp_win->hasfocusvisible) {
-				Tmp_win->title.back =  Tmp_win->borderC.back;
+				Tmp_win->title =  Tmp_win->borderC;
 			} 
 		
 			XSetForeground(dpy, Scr->NormalGC, Tmp_win->title.back);
 			XFillRectangle(dpy, Tmp_win->title_w, Scr->NormalGC, 0, 0, Tmp_win->title_width , Scr->TitleHeight);
 			XSetForeground(dpy, Scr->NormalGC, Tmp_win->title.fore);
 			PaintTitle(Tmp_win);
-			Tmp_win->title.back = temp;
+			Tmp_win->title = temp;
 		
 			flush_expose(Event.xany.window);
 			return;

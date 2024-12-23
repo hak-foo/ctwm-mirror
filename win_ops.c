@@ -41,9 +41,9 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 	if(tmp_win->highlight) {
 	
 
-		Pixel temp = tmp_win->title.back;
+		ColorPair temp = tmp_win->title;
 		if (focus) {
-			tmp_win->title.back =  tmp_win->borderC.back;
+			tmp_win->title =  tmp_win->borderC;
 		} 
 		if(tmp_win->title_w) {
 		
@@ -60,7 +60,7 @@ SetFocusVisualAttributes(TwmWindow *tmp_win, bool focus)
 				PaintTitleButtons(tmp_win);
 		}
 
-		tmp_win->title.back = temp;
+		tmp_win->title = temp;
 		
 		if(Scr->use3Dborders) {
 			PaintBorders(tmp_win, focus);
