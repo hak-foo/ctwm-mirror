@@ -551,6 +551,8 @@ struct ScreenInfo {
 	short TitleShadowDepth;       ///< TitleShadowDepth config var
 	short MenuShadowDepth;        ///< MenuShadowDepth config var
 	short IconManagerShadowDepth; ///< IconManagerShadowDepth config var
+	short HighlightMarginX;
+	short HighlightMarginY;
 	/// ReallyMoveInWorkspaceManager config var
 	bool  ReallyMoveInWorkspaceManager;
 	/// AlwaysShowWindowWhenMovingFromWorkspaceManager config var

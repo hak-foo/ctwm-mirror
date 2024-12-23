@@ -1017,7 +1017,7 @@ CreateHighlightWindows(TwmWindow *tmp_win)
 		}
 
 		pm = mk_blackgray_pixmap(which, tmp_win->title_w,
-		                         tmp_win->title.fore, tmp_win->title.back);
+		                         tmp_win->ActiveTitleC.fore, tmp_win->ActiveTitleC.back);
 
 		tmp_win->HiliteImage = AllocImage();
 		tmp_win->HiliteImage->pixmap = pm;
@@ -1129,8 +1129,8 @@ CreateLowlightWindows(TwmWindow *tmp_win)
 	if(! tmp_win->LoliteImage) {
 		if(Scr->HighlightPixmapName) {
 			cp = tmp_win->title;
-			cp.shadc = tmp_win->title.shadd;
-			cp.shadd = tmp_win->title.shadc;
+			cp.shadc = tmp_win->ActiveTitleC.shadd;
+			cp.shadd = tmp_win->ActiveTitleC.shadc;
 			tmp_win->LoliteImage = GetImage(Scr->HighlightPixmapName, cp);
 		}
 	}
