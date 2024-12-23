@@ -196,6 +196,8 @@ typedef struct _TwmKeyword {
 #define kwn_TitleBarHeight          	37
 #define kwn_MenuLineHeight          	38
 #define kwn_IconManagerLineHeight       39
+#define kwn_HighlightMarginX			40
+#define kwn_HighlightMarginY			41
 
 
 #define kwcl_BorderColor                1
@@ -299,6 +301,8 @@ static const TwmKeyword keytable[] = {
 	{ "framepadding",           NKEYWORD, kwn_FramePadding },
 	{ "function",               FUNCTION, 0 },
 	{ "grabserver",             KEYWORD, kw0_GrabServer },
+	{ "highlightmarginx",       NKEYWORD, kwn_HighlightMarginX },
+	{ "highlightmarginy",       NKEYWORD, kwn_HighlightMarginY },
 	{ "i",                      ICON, 0 },
 	{ "icon",                   ICON, 0 },
 	{ "iconbackground",         CLKEYWORD, kwcl_IconBackground },
@@ -1197,6 +1201,14 @@ do_number_keyword(int keyword, int num)
 			
 		case kwn_MenuLineHeight:
 			Scr->MenuLineHeight = num;
+			return true;
+			
+		case kwn_HighlightMarginX:
+			Scr->HighlightMarginX = num;
+			return true;
+			
+		case kwn_HighlightMarginY:
+			Scr->HighlightMarginY = num;
 			return true;
 
 		case kwn_IconManagerLineHeight:

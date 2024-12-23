@@ -378,20 +378,21 @@ SetupFrame(TwmWindow *tmp_win, int x, int y, int w, int h, int bw,
 		 * Left-side window bits
 		 */
 		/* Starts from highlightxl, goes to name_x */
-		xwc.width = (tmp_win->name_x - tmp_win->highlightxl);
+		xwc.width = (tmp_win->name_x - tmp_win->highlightxl) ;
 
 		/* Pad for 3d pop-in/out */
 		if(Scr->use3Dtitles) {
 			xwc.width -= Scr->TitleButtonShadowDepth;
 		}
 
+		xwc.width -= 2*Scr->HighlightMarginX;
 		/* Move offscreen if it's got no width to display, else place */
 		if(xwc.width <= 0) {
 			xwc.x = Scr->rootw; /* move offscreen */
 			xwc.width = 1;
 		}
 		else {
-			xwc.x = tmp_win->highlightxl;
+			xwc.x = tmp_win->highlightxl + Scr->HighlightMarginX;
 		}
 
 		/* We're setting the X placement and width */
@@ -416,6 +417,7 @@ SetupFrame(TwmWindow *tmp_win, int x, int y, int w, int h, int bw,
 		if(Scr->TBInfo.nright > 0) {
 			xwc.width -= 2 * Scr->TitlePadding;
 		}
+		xwc.width -= 2*Scr->HighlightMarginX;
 
 		/* Rest is similar to above for left-side */
 		if(Scr->use3Dtitles) {
@@ -428,7 +430,7 @@ SetupFrame(TwmWindow *tmp_win, int x, int y, int w, int h, int bw,
 			xwc.width = 1;
 		}
 		else {
-			xwc.x = tmp_win->highlightxr;
+			xwc.x = tmp_win->highlightxr + Scr->HighlightMarginX;
 		}
 
 		xwcm = CWX | CWWidth;  // Not strictly necessary, same as above
@@ -1045,6 +1047,9 @@ CreateHighlightWindows(TwmWindow *tmp_win)
 		h -= 2 * Scr->TitleShadowDepth;
 	}
 
+	y += Scr->HighlightMarginY;
+	h -= 2 * Scr->HighlightMarginY;
+		
 	/*
 	 * There's a left hilite window unless the title is flush left, and
 	 * similarly for the right.

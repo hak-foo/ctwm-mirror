@@ -720,6 +720,7 @@ ctwm_main(int argc, char *argv[])
 		 * default before the parse.
 		 */
 #define SETDEF(fld, num) if(Scr->fld == -100) { Scr->fld = num; }
+
 		if(Scr->use3Dtitles) {
 			SETDEF(FramePadding,  0);
 			SETDEF(TitlePadding,  0);
@@ -785,6 +786,7 @@ ctwm_main(int argc, char *argv[])
 				ir->Alignement = Scr->IconRegionAlignement;
 			}
 		}
+
 
 		// Put the results of SaveColor{} into _MIT_PRIORITY_COLORS.
 		assign_var_savecolor();
