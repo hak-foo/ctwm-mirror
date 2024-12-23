@@ -533,6 +533,8 @@ struct ScreenInfo {
 	short WMgrVertButtonIndent;  ///< WMgrVertButtonIndent config var
 	short WMgrHorizButtonIndent; ///< WMgrHorizButtonIndent config var
 	short WMgrButtonShadowDepth; ///< WMgrButtonShadowDepth config var
+	short TitleBarHeight;
+	short MenuLineHeight;
 	bool  BeNiceToColormap; ///< BeNiceToColormap config var
 	bool  BorderCursors;    ///< BorderResizeCursors config var
 	/// AutoPopup config flag.  \sa ScreenInfo.AutoPopupL

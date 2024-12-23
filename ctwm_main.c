@@ -821,7 +821,9 @@ ctwm_main(int argc, char *argv[])
 		// Adjust settings for titlebar.  Must follow CreateFonts() call
 		// so we know these bits are populated
 		Scr->TitleBarFont.y += Scr->FramePadding;
-		Scr->TitleHeight = Scr->TitleBarFont.height * 1.6 + Scr->FramePadding * 2;
+		Scr->TitleHeight = Scr->TitleBarFont.height + Scr->FramePadding * 2;
+		// Allow override with TitleBarHeight configurable
+		if (Scr->TitleBarHeight > Scr->TitleHeight) Scr->TitleHeight = Scr->TitleBarHeight;
 		if(Scr->use3Dtitles) {
 			Scr->TitleHeight += 2 * Scr->TitleShadowDepth;
 		}
@@ -1239,6 +1241,8 @@ InitScreenInfo(int scrnum, Window croot, int crootx, int crooty,
 	scr->MoveDelta = 1;
 	scr->MoveOffResistance = -1;
 	scr->MovePackResistance = 20;
+	scr->TitleBarHeight = 24;
+	scr->MenuLineHeight = 24;
 	scr->ZoomCount = 8;
 	scr->SortIconMgr = true;
 	scr->Shadow = true;

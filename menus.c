@@ -79,7 +79,7 @@ static void DestroyMenu(MenuRoot *menu);
 
 
 #define SHADOWWIDTH 5                   /* in pixels */
-#define ENTRY_SPACING 8
+#define ENTRY_SPACING 4
 
 
 /***********************************************************************
@@ -864,6 +864,7 @@ void MakeMenu(MenuRoot *mr)
 	XRectangle logical_rect;
 
 	Scr->EntryHeight = Scr->MenuFont.height + 4;
+	if (Scr->MenuLineHeight > Scr->EntryHeight) Scr->EntryHeight = Scr->MenuLineHeight;
 
 	/* lets first size the window accordingly */
 	if(mr->mapped == MRM_NEVER) {
@@ -887,6 +888,8 @@ void MakeMenu(MenuRoot *mr)
 			}
 		}
 		Scr->EntryHeight = max_entry_height + ENTRY_SPACING;
+		if (Scr->MenuLineHeight > Scr->EntryHeight) Scr->EntryHeight = Scr->MenuLineHeight;
+
 		mr->height = mr->items * Scr->EntryHeight;
 		mr->width += 10;
 		if(Scr->use3Dmenus) {

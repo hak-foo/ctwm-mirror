@@ -193,6 +193,9 @@ typedef struct _TwmKeyword {
 #define kwn_BorderBottom                34
 #define kwn_BorderLeft                  35
 #define kwn_BorderRight                 36
+#define kwn_TitleBarHeight          	37
+#define kwn_MenuLineHeight          	38
+
 
 #define kwcl_BorderColor                1
 #define kwcl_IconManagerHighlight       2
@@ -339,6 +342,7 @@ static const TwmKeyword keytable[] = {
 	{ "menubackground",         CKEYWORD, kwc_MenuBackground },
 	{ "menufont",               SKEYWORD, kws_MenuFont },
 	{ "menuforeground",         CKEYWORD, kwc_MenuForeground },
+	{ "menulineheight",         NKEYWORD, kwn_MenuLineHeight },
 	{ "menushadowcolor",        CKEYWORD, kwc_MenuShadowColor },
 	{ "menushadowdepth",        NKEYWORD, kwn_MenuShadowDepth },
 	{ "menutitlebackground",    CKEYWORD, kwc_MenuTitleBackground },
@@ -436,6 +440,7 @@ static const TwmKeyword keytable[] = {
 	{ "threedborderwidth",      NKEYWORD, kwn_ThreeDBorderWidth },
 	{ "title",                  TITLE, 0 },
 	{ "titlebackground",        CLKEYWORD, kwcl_TitleBackground },
+	{ "titlebarheight",         NKEYWORD, kwn_TitleBarHeight },
 	{ "titlebuttonborderwidth", NKEYWORD, kwn_TitleButtonBorderWidth },
 	{ "titlebuttonshadowdepth", NKEYWORD, kwn_TitleButtonShadowDepth },
 	{ "titlefont",              SKEYWORD, kws_TitleFont },
@@ -1178,6 +1183,15 @@ do_number_keyword(int keyword, int num)
 		case kwn_MoveOffResistance:
 			Scr->MoveOffResistance = num;
 			return true;
+			
+		case kwn_TitleBarHeight:
+			Scr->TitleBarHeight = num;
+			return true;
+			
+		case kwn_MenuLineHeight:
+			Scr->MenuLineHeight = num;
+			return true;
+			
 
 		case kwn_MovePackResistance:
 			if(num < 0) {

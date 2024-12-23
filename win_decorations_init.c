@@ -43,6 +43,7 @@ InitTitlebarButtons(void)
 	TitleButton *tb;
 	int h;
 
+
 	/*
 	 * initialize dimensions
 	 */
