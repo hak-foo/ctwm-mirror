@@ -1153,6 +1153,8 @@ void PackIconManager(IconMgr *ip)
 	if(wheight < (im_iconified_icon_height + 4)) {
 		wheight = im_iconified_icon_height + 4;
 	}
+	
+	if(wheight < Scr->IconManagerLineHeight) wheight = Scr->IconManagerLineHeight;
 
 	wwidth = ip->width / ip->columns;
 
@@ -1259,7 +1261,7 @@ DrawIconManagerIconName(TwmWindow *tmp_win)
 
 	// Write in the title
 	FB(iconmanagerlist->cp.fore, iconmanagerlist->cp.back);
-
+printf("%d - at 1264\n", logical_rect.height);
 	/* XXX This is a completely absurd way of writing this */
 	((Scr->use3Diconmanagers && (Scr->Monochrome != COLOR)) ?
 	 XmbDrawImageString : XmbDrawString)
@@ -1269,6 +1271,7 @@ DrawIconManagerIconName(TwmWindow *tmp_win)
 	 Scr->NormalGC,
 	 iconmgr_textx,
 	 (Scr->IconManagerFont.avg_height - logical_rect.height) / 2
+	 + MAX(0, (Scr->IconManagerLineHeight - Scr->IconManagerFont.avg_height) / 2 - ICON_MGR_OBORDER - ICON_MGR_IBORDER)
 	 + (- logical_rect.y)
 	 + ICON_MGR_OBORDER
 	 + ICON_MGR_IBORDER,

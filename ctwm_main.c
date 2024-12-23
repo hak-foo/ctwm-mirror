@@ -1243,6 +1243,7 @@ InitScreenInfo(int scrnum, Window croot, int crootx, int crooty,
 	scr->MovePackResistance = 20;
 	scr->TitleBarHeight = 24;
 	scr->MenuLineHeight = 24;
+	scr->IconManagerLineHeight = 24;
 	scr->ZoomCount = 8;
 	scr->SortIconMgr = true;
 	scr->Shadow = true;
